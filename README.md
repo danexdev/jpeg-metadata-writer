@@ -8,7 +8,10 @@ Automate the process of writing metadata (title, description, and keywords) into
 - Reads metadata from a JSON file.
 - Writes `title`, `description`, and `keywords` into EXIF metadata fields of JPEG files.
 - Supports batch processing for multiple images.
-- Overwrites original files (can be customized to keep backups).
+- Allows selecting a **source folder** for images and metadata JSON files (default: current directory).
+- Allows specifying an **output folder** for tagged images (default: `Tagged`).
+- Copies images to the output folder before modifying metadata.
+- Overwrites original files in the output directory (can be customized to keep backups).
 
 ## Prerequisites
 
@@ -32,15 +35,15 @@ Before using the script, ensure the following tools are installed on your macOS 
    cd jpeg-metadata-writer
    ```
 
-2. Place your JPEG files in the `images/` directory.
+2. Place your JPEG files and metadata JSON files in the **source folder** (default: current directory).
 
-3. Prepare your metadata in a JSON file (e.g., `metadata.json`).
+3. Ensure the metadata JSON files match the following format.
 
 ## JSON Metadata Format
 
 The JSON file should have an array of objects, with each object containing:
 
-- `filename`: Name of the image file (must match the file in the `images/` directory).
+- `filename`: Name of the image file (must match the file in the source folder).
 - `title`: The title of the image.
 - `description`: A detailed description of the image.
 - `keywords`: A comma-separated list of keywords for the image.
@@ -76,33 +79,45 @@ The JSON file should have an array of objects, with each object containing:
    ```
 
 3. The script will:
-   - Read metadata from `metadata.json`.
-   - Match each `filename` in the JSON with the corresponding image in the `images/` directory.
-   - Write metadata into the JPEG files.
+   - Ask for the **source folder** (default: current directory).
+   - Ask for the **output folder** (default: `Tagged`).
+   - Read metadata from JSON files (`*.metadata.json`).
+   - Match each `filename` in the JSON with the corresponding image in the source folder.
+   - Copy the image to the output folder before applying metadata.
+   - Write metadata into the copied JPEG files.
 
 ## Output
 
 For each image processed, the script will output:
 ```
+Enter the source folder (default: current directory):
+Enter the output folder name (default: Tagged):
+
+Processing metadata file: example.metadata.json
 Writing metadata for 20221223_111456.jpg...
     1 image files updated
-Metadata written for 20221223_111456.jpg
+Metadata written for 20221223_111456.jpg and saved in Tagged
+Writing metadata for 20221224_115516.jpg...
+    1 image files updated
+Metadata written for 20221224_115516.jpg and saved in Tagged
+
+Metadata writing process completed! Tagged images are in the 'Tagged' folder.
 ```
 
 ## Directory Structure
 
 ```
 jpeg-metadata-writer/
-├── images/               # Directory containing JPEG images
-├── metadata.json         # JSON file with metadata
+├── images/               # Optional: Directory containing source JPEG images (can be any folder)
+├── metadata.json         # JSON file with metadata (or multiple *.metadata.json files)
 ├── write_metadata.sh     # Bash script for writing metadata
 ├── README.md             # Project documentation
 ```
 
 ## Customization
 
-- Modify the `IMAGE_DIR` and `METADATA_FILE` variables in the script to use different directories or filenames.
-- To keep backups of the original images, remove the `-overwrite_original` option in the script.
+- Modify the `SOURCE_DIR` and `OUTPUT_DIR` in the script for default directory changes.
+- To keep backups of the original images in the output folder, remove the `-overwrite_original` option in the script.
 
 ## License
 
@@ -114,4 +129,4 @@ Contributions are welcome! Feel free to open issues or submit pull requests for 
 
 ---
 
-Happy coding!
+Happy coding! 🚀
