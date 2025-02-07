@@ -12,6 +12,7 @@ Automate the process of writing metadata (title, description, and keywords) into
 - Allows specifying an **output folder** for tagged images (default: `Tagged`).
 - Copies images to the output folder before modifying metadata.
 - Overwrites original files in the output directory (can be customized to keep backups).
+- Generates **Shutterstock CSV** and **Adobe Stock CSV** files containing metadata.
 
 ## Prerequisites
 
@@ -85,6 +86,7 @@ The JSON file should have an array of objects, with each object containing:
    - Match each `filename` in the JSON with the corresponding image in the source folder.
    - Copy the image to the output folder before applying metadata.
    - Write metadata into the copied JPEG files.
+   - Generate two CSV files: **Shutterstock CSV** and **Adobe Stock CSV**.
 
 ## Output
 
@@ -102,6 +104,8 @@ Writing metadata for 20221224_115516.jpg...
 Metadata written for 20221224_115516.jpg and saved in Tagged
 
 Metadata writing process completed! Tagged images are in the 'Tagged' folder.
+Shutterstock CSV is saved to 'Tagged/shutterstock_metadata.csv'.
+Adobe Stock CSV is saved to 'Tagged/adobe_stock_metadata.csv'.
 ```
 
 ## Directory Structure
